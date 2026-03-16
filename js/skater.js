@@ -146,10 +146,15 @@ export class Skater {
   update(dt, roadXAt) {
     if (!this.isAlive) return;
 
-    // ── Steering ──
+    // ── Steering (analog gamepad takes priority over digital) ──
     let steerInput = 0;
-    if (this.keys['ArrowLeft']  || this.keys['a'] || this.keys['A']) steerInput -= 1;
-    if (this.keys['ArrowRight'] || this.keys['d'] || this.keys['D']) steerInput += 1;
+    const analog = this.keys['_analogSteer'];
+    if (analog && Math.abs(analog) > 0.05) {
+      steerInput = analog; // -1…+1 from left stick
+    } else {
+      if (this.keys['ArrowLeft']  || this.keys['a'] || this.keys['A']) steerInput -= 1;
+      if (this.keys['ArrowRight'] || this.keys['d'] || this.keys['D']) steerInput += 1;
+    }
 
     this.lateralVel += steerInput * STEER_SPEED * dt;
     this.lateralVel *= Math.pow(1 - STEER_RETURN * dt, 1); // damping

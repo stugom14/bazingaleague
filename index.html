@@ -41,17 +41,27 @@
   <!-- Trick Flash -->
   <div id="trick-flash" class="hidden"></div>
 
+  <!-- Gamepad indicator -->
+  <div id="gamepad-indicator" class="hidden"></div>
+
   <!-- Start Screen -->
   <div id="start-screen" class="overlay">
     <div class="overlay-content">
       <h1 class="game-title">DOWNHILL<br/><span>SKATE</span></h1>
       <p class="subtitle">one mistake. one mountain. no second chances.</p>
       <div class="controls-hint">
+        <div class="controls-section-label">KEYBOARD</div>
         <div class="control-row"><kbd>A</kbd><kbd>D</kbd> or <kbd>←</kbd><kbd>→</kbd> &mdash; Steer</div>
         <div class="control-row"><kbd>S</kbd> or <kbd>↓</kbd> &mdash; Crouch (hold for speed)</div>
-        <div class="control-row"><kbd>Space</kbd> &mdash; Jump</div>
-        <div class="control-row"><kbd>Space</kbd> + direction &mdash; Grab tricks</div>
+        <div class="control-row"><kbd>Space</kbd> &mdash; Jump / Trick</div>
+        <div class="control-row"><kbd>Space</kbd> + direction &mdash; Different tricks</div>
         <div class="control-row"><kbd>Shift</kbd> &mdash; Release boost</div>
+        <div class="controls-section-label" style="margin-top:10px">CONTROLLER</div>
+        <div class="control-row"><kbd>L-Stick</kbd> &mdash; Steer (analog)</div>
+        <div class="control-row"><kbd>A / Cross</kbd> &mdash; Jump / Trick</div>
+        <div class="control-row"><kbd>B / Circle</kbd> or <kbd>LT</kbd> &mdash; Crouch</div>
+        <div class="control-row"><kbd>RB / R1</kbd> or <kbd>RT</kbd> &mdash; Release boost</div>
+        <div class="control-row"><kbd>Start</kbd> &mdash; Drop in / Retry</div>
       </div>
       <button id="start-btn" class="primary-btn">DROP IN</button>
     </div>

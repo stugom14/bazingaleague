@@ -1,6 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import { TrackManager } from './track.js';
 import { Skater } from './skater.js';
+import { pollGamepad, gamepadConfirmPressed } from './gamepad.js';
 
 // ── Scene Setup ────────────────────────────────────────────────────────────
 const canvas = document.getElementById('game-canvas');
@@ -79,6 +80,13 @@ window.addEventListener('keydown', e => {
   if (e.key === 'r' && state === 'dead')       startGame();
 });
 
+// Poll gamepad confirm on menu screens (runs even when not playing)
+function menuGamepadPoll() {
+  if (state !== 'playing' && gamepadConfirmPressed()) startGame();
+  requestAnimationFrame(menuGamepadPoll);
+}
+requestAnimationFrame(menuGamepadPoll);
+
 // ── Challenge Setup ────────────────────────────────────────────────────────
 challengeTxt.textContent = `DAILY CHALLENGE: ${CHALLENGE.description}`;
 
@@ -144,6 +152,9 @@ function gameLoop(now) {
 
   const dt = Math.min((now - lastFrameTime) / 1000, 0.05);
   lastFrameTime = now;
+
+  // Poll gamepad input into the shared keys object each frame
+  pollGamepad(keys);
 
   // Update
   skater.update(dt, z => track.getRoadXAt(z));
