@@ -1,0 +1,274 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  overflow: hidden;
+  font-family: 'Arial Black', 'Arial', sans-serif;
+  color: #fff;
+  user-select: none;
+}
+
+#game-canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ── HUD ── */
+#hud {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  pointer-events: none;
+  padding: 20px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+#speed-display,
+#score-display,
+#combo-display,
+#distance-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
+
+#speed-value {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: #ff4400;
+}
+
+#score-value,
+#distance-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+#combo-value {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffcc00;
+  animation: pulse 0.3s ease;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+
+#boost-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#boost-bar {
+  width: 120px;
+  height: 14px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+}
+
+#boost-bar::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: var(--boost, 0%);
+  background: linear-gradient(90deg, #ff4400, #ffcc00);
+  border-radius: 7px;
+  transition: width 0.1s;
+}
+
+/* ── Challenge Banner ── */
+#challenge-banner {
+  position: fixed;
+  top: 0; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  border-bottom: 2px solid #ff4400;
+  padding: 8px 24px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffcc00;
+  white-space: nowrap;
+}
+
+/* ── Trick Flash ── */
+#trick-flash {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #ffcc00;
+  text-shadow: 0 0 20px #ff4400, 0 4px 12px rgba(0,0,0,0.8);
+  pointer-events: none;
+  animation: trickPop 0.6s forwards;
+}
+
+/* ── Overlays ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-content {
+  text-align: center;
+  max-width: 480px;
+  padding: 40px;
+}
+
+.game-title {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.game-title span {
+  color: #ff4400;
+  display: block;
+  font-size: 96px;
+}
+
+.subtitle {
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.controls-hint {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 36px;
+  text-align: left;
+  background: rgba(255,255,255,0.05);
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.control-row {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+}
+
+kbd {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.primary-btn {
+  background: #ff4400;
+  color: #fff;
+  border: none;
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.primary-btn:hover {
+  background: #ff6622;
+  transform: scale(1.03);
+}
+
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+.wipeout-title {
+  font-size: 96px;
+  font-weight: 900;
+  color: #ff4400;
+  letter-spacing: -4px;
+  margin-bottom: 28px;
+}
+
+#run-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+}
+
+.stat-label {
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+#challenge-result {
+  margin-bottom: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffcc00;
+  min-height: 20px;
+}
+
+/* ── Animations ── */
+@keyframes pulse {
+  0% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes trickPop {
+  0%   { opacity: 1; transform: translate(-50%, -60%) scale(1.2); }
+  70%  { opacity: 1; transform: translate(-50%, -70%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -80%) scale(0.9); }
+}
+
+.hidden {
+  display: none !important;
+}

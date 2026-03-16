@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOWNHILL SKATE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div id="speed-display">
+      <span id="speed-value">0</span>
+      <span class="label">KM/H</span>
+    </div>
+    <div id="score-display">
+      <span id="score-value">0</span>
+      <span class="label">PTS</span>
+    </div>
+    <div id="combo-display" class="hidden">
+      <span id="combo-value">x1</span>
+      <span class="label">COMBO</span>
+    </div>
+    <div id="boost-bar-container">
+      <div id="boost-bar"></div>
+      <span class="label">BOOST</span>
+    </div>
+    <div id="distance-display">
+      <span id="distance-value">0</span>
+      <span class="label">M</span>
+    </div>
+  </div>
+
+  <!-- Challenge Banner -->
+  <div id="challenge-banner">
+    <span id="challenge-text">DAILY CHALLENGE: Reach 2000m without wiping out</span>
+  </div>
+
+  <!-- Trick Flash -->
+  <div id="trick-flash" class="hidden"></div>
+
+  <!-- Start Screen -->
+  <div id="start-screen" class="overlay">
+    <div class="overlay-content">
+      <h1 class="game-title">DOWNHILL<br/><span>SKATE</span></h1>
+      <p class="subtitle">one mistake. one mountain. no second chances.</p>
+      <div class="controls-hint">
+        <div class="control-row"><kbd>A</kbd><kbd>D</kbd> or <kbd>←</kbd><kbd>→</kbd> &mdash; Steer</div>
+        <div class="control-row"><kbd>S</kbd> or <kbd>↓</kbd> &mdash; Crouch (hold for speed)</div>
+        <div class="control-row"><kbd>Space</kbd> &mdash; Jump</div>
+        <div class="control-row"><kbd>Space</kbd> + direction &mdash; Grab tricks</div>
+        <div class="control-row"><kbd>Shift</kbd> &mdash; Release boost</div>
+      </div>
+      <button id="start-btn" class="primary-btn">DROP IN</button>
+    </div>
+  </div>
+
+  <!-- Wipeout Screen -->
+  <div id="wipeout-screen" class="overlay hidden">
+    <div class="overlay-content">
+      <h2 class="wipeout-title">BAILED</h2>
+      <div id="run-stats">
+        <div class="stat-row"><span class="stat-label">Distance</span><span id="final-distance">0 m</span></div>
+        <div class="stat-row"><span class="stat-label">Top Speed</span><span id="final-speed">0 km/h</span></div>
+        <div class="stat-row"><span class="stat-label">Score</span><span id="final-score">0</span></div>
+        <div class="stat-row"><span class="stat-label">Best Trick</span><span id="final-trick">—</span></div>
+      </div>
+      <div id="challenge-result"></div>
+      <button id="retry-btn" class="primary-btn">RUN IT BACK</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
